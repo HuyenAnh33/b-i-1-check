@@ -1,3 +1,6 @@
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundRepeat;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.xml.stream.events.StartDocument;
@@ -19,6 +22,7 @@ public class GameCanvas extends JPanel {
     List<Star> stars;
     List<Enemy> enemys;
     List<Player> players;
+    BackGround backGround;
 
     int countStart = 0;
     int countEnemy = 0;
@@ -54,6 +58,7 @@ public class GameCanvas extends JPanel {
         this.stars = new ArrayList<>();
         this.enemys = new ArrayList<>();
         this.players = new ArrayList<>();
+        //this.backGround = new  ArrayList<>();
     }
 
     //paintComponent chi la de ve va lat hinh anh
@@ -66,16 +71,14 @@ public class GameCanvas extends JPanel {
     }
 
 
+
     public void renderAll() { // ve
 
         this.graphics.setColor(Color.BLACK);//tao nen
         this.graphics.fillRect(0, 0, 1024, 600);// but ve hinh chu nhat
-
         this.stars.forEach(star -> star.render(graphics));// vong lap for noi xu ly code
         this.enemys.forEach(enemy -> enemy.render(graphics));
         this.players.forEach(player -> player.render(graphics));
-
-
         this.repaint();// be tu gamewindow va this chinh la gamecavas
 
     }
@@ -88,6 +91,8 @@ public class GameCanvas extends JPanel {
         this.enemys.forEach(enemy -> enemy.run());
         this.createrPlayer();
         this.players.forEach(player -> player.run());
+        //this.backGround.render(graphics);
+
     }
 
     private void createrStart() {
@@ -125,11 +130,13 @@ public class GameCanvas extends JPanel {
 
     private void createrPlayer() {
         Player player = new Player(
-                this.random.nextInt(400),
-                this.random.nextInt(200),
+                150,
+               200,
+               // this.random.nextInt(400),
+                //this.random.nextInt(200),
                 this.loadImage("resources/images/circle.png"),
-                -this.random.nextInt(3) + 1,
-                -this.random.nextInt(3) + 1
+                0,
+                0
         );
         this.players.add(player);
     }
