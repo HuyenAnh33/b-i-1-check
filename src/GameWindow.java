@@ -13,10 +13,12 @@ public class GameWindow extends JFrame {
         this.setSize(1024, 600);
         this.gameCanvas = new GameCanvas();
         this.add(this.gameCanvas);//truyen game nay vao windown
+        this.event();
+        this.setVisible(true);
+    }
+    public void event(){
         this.keyboarEvent();
         this.windowEvent();
-
-        this.setVisible(true);
     }
 
     private void keyboarEvent() {
@@ -29,23 +31,26 @@ public class GameWindow extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    gameCanvas.positionXPlayer -= 8;
+                    gameCanvas.player.angle += 5.0;
                 }
 
-                if (gameCanvas.positionXPlayer <= 0) {
-                    gameCanvas.positionXPlayer = 1024;
-                    gameCanvas.positionYPlayer = random.nextInt(601);
-                }
+//                if (gameCanvas.positionXPlayer <= 0) {
+//                    gameCanvas.positionXPlayer = 1024;
+//                    gameCanvas.positionYPlayer = random.nextInt(601);
+//                }
 
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT)
 
                 {
-                    gameCanvas.positionXPlayer += 8;
+                    gameCanvas.player.angle -= 5.0;
                 }
-                if (gameCanvas.positionXPlayer >= 600) {
-                    gameCanvas.positionXPlayer = 0;
-                    gameCanvas.positionYPlayer = random.nextInt(1025);
-                }
+                gameCanvas.player.velocity.set(
+                        (new  Vecto2D(3.5f,0.0f).rotate(gameCanvas.player.angle))
+                );
+//                if (gameCanvas.positionXPlayer >= 600) {
+//                    gameCanvas.positionXPlayer = 0;
+//                    gameCanvas.positionYPlayer = random.nextInt(1025);
+//                }
 
             }
 
@@ -61,6 +66,7 @@ public class GameWindow extends JFrame {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+
                 System.exit(1);
             }
         });
@@ -75,8 +81,8 @@ public class GameWindow extends JFrame {
                 //this.gameCanvas.positionXStar -= 3;//toc do chay cua ngoi sao la 3
 
                 //cho enemy di chuyen cheo
-                this.gameCanvas.positionXEnemy -= 8;
-                this.gameCanvas.positionYEnemy -= 8;
+//                this.gameCanvas.positionXEnemy -= 8;
+//                this.gameCanvas.positionYEnemy -= 8;
 //                this.gameCanvas.positionXEnemy += this.gameCanvas.speedXEnemy;
 //                this.gameCanvas.positionYEnemy += this.gameCanvas.speedYEnemy;
 //

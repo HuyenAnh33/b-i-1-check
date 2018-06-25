@@ -1,16 +1,9 @@
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundRepeat;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.xml.stream.events.StartDocument;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class GameCanvas extends JPanel {
@@ -19,26 +12,17 @@ public class GameCanvas extends JPanel {
     //BackBuffered lat hinh anh
     BufferedImage backBuffered;
     Graphics graphics;//co ve nay se ve het len buffered
-    List<Star> stars;
-    List<Enemy> enemys;
-    List<Player> players;
+
     BackGround backGround;
 
     int countStart = 0;
-    int countEnemy = 0;
-    int countPlayer = 0;
+   public Player player = new Player();
+   public Enemy enemy = new Enemy();
     private Random random = new Random();
+    public  Star star = new Star(this.random.nextInt(500), -this.random.nextInt(3) + 01);
 
     //vi tri
-    public int positionXEnemy = 100;
-    public int positionYEnemy = 200;
 
-
-    public int positionXPlayer = 150;
-    public int positionYPlayer = 300;
-
-    public int speedXEnemy = 8;
-    public int speedYEnemy = 8;
 
 
     public GameCanvas() {
@@ -55,10 +39,21 @@ public class GameCanvas extends JPanel {
     }
 
     private void setupCharacter() {
-        this.stars = new ArrayList<>();
-        this.enemys = new ArrayList<>();
-        this.players = new ArrayList<>();
-        //this.backGround = new  ArrayList<>();
+        this.backGround = new BackGround();
+        this.setupStar();
+       this.setupPlayer();
+       this.setupEnemy();
+    }
+    private  void setupStar(){
+        this.star.position.set(500,300);
+        this.star.image = this.loadImage("resources/images/star.png");
+    }
+    private void setupPlayer(){
+        this.player.position.set(100,200);
+    }
+    private void setupEnemy(){
+        this.enemy.position.set(800,400);
+        this.enemy.image = this.loadImage("resources/images/circle.png");
     }
 
     //paintComponent chi la de ve va lat hinh anh
@@ -74,82 +69,44 @@ public class GameCanvas extends JPanel {
 
     public void renderAll() { // ve
 
-        this.graphics.setColor(Color.BLACK);//tao nen
-        this.graphics.fillRect(0, 0, 1024, 600);// but ve hinh chu nhat
-        this.stars.forEach(star -> star.render(graphics));// vong lap for noi xu ly code
-        this.enemys.forEach(enemy -> enemy.render(graphics));
-        this.players.forEach(player -> player.render(graphics));
+        this.backGround.render(this.graphics);//tao nen
+       this.player.render(this.graphics);
+       this.enemy.render(this.graphics);
+       this.star.render(this.graphics);
         this.repaint();// be tu gamewindow va this chinh la gamecavas
 
     }
 
     public void runAll() {
-        this.createrStart();
-        this.stars.forEach(star -> star.run());
         this.runEnemy();
-        this.createrEnemy();
-        this.enemys.forEach(enemy -> enemy.run());
-        this.createrPlayer();
-        this.players.forEach(player -> player.run());
-        //this.backGround.render(graphics);
-
+        this.player.run();
+        this.runStar();
     }
 
-    private void createrStart() {
-        //if(this.countStart == 10){
-        Star star = new Star(
-                1024,
-                this.random.nextInt(600),
-                this.loadImage("resources/images/star.png"),
-                -this.random.nextInt(3) + 1,
-                0
-        );
-
-        this.stars.add(star);
+    private void runStar(){
+//        if(this.countStart == 10){
+//            Star star = new Star(
+//                    this.random.nextInt(500),
+//                    -this.random.nextInt(3)+1 );
 //            countStart =0;
 //        }else {
 //            countStart++;
 //        }
+        Vecto2D velocity = this.star.position
+                .multiply(0.5f);
+        this.star.velocity.set(velocity);
+        this.star.run();
+
+    }
+    private void runEnemy(){
+        Vecto2D velocity = this.player.position
+                .subtract(this.enemy.position)
+                .normalize()
+                .multiply(1.5f);
+        this.enemy.velocity.set(velocity);
+        this.enemy.run();
     }
 
-    private void createrEnemy() {
-        //if (this.countEnemy == 10) {
-        Enemy enemy = new Enemy(
-                this.random.nextInt(300),
-                this.random.nextInt(450),
-                this.loadImage("resources/images/circle.png"),
-                -this.random.nextInt(3) + 1,
-                -this.random.nextInt(3) + 1
-        );
-        this.enemys.add(enemy);
-//            countEnemy = 0;
-//        }else {
-//            countEnemy++;
-//        }
-    }
-
-    private void createrPlayer() {
-        Player player = new Player(
-                150,
-               200,
-               // this.random.nextInt(400),
-                //this.random.nextInt(200),
-                this.loadImage("resources/images/circle.png"),
-                0,
-                0
-        );
-        this.players.add(player);
-    }
-
-
-    private void runEnemy() {
-        this.positionXEnemy += this.speedXEnemy;
-        this.positionYEnemy += this.speedYEnemy;
-        if (this.positionXEnemy < 0 || this.positionXEnemy > 1024 - 20)
-            this.speedXEnemy = -this.speedXEnemy;
-        if (this.positionYEnemy < 0 || this.positionYEnemy > 600 - 20)
-            this.speedYEnemy = -this.speedYEnemy;
-    }
 
 
     private BufferedImage loadImage(String path) {

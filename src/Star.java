@@ -1,33 +1,24 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 public class Star {
-    public int x;
-    public int y;
     public BufferedImage image;
-    public int veclocityX;
-    public int VeclocityY;
+    public Vecto2D position;
+    public Vecto2D velocity;
+    Random random;
 
-    public Star(int x, int y, BufferedImage image, int veclocityX, int veclocityY) {
-        this.x = x;
-        this.y = y;
-        this.image = image;
-        this.veclocityX = veclocityX;
-        VeclocityY = veclocityY;
+    public Star(int i, int i1){
+    this.position = new Vecto2D();
+    this.velocity = new Vecto2D();
     }
-    public Star(){
+    public void run() {
+        this.position.addUp(velocity);
 
-    }
-    public void run(){
-        this.x += this.veclocityX;
-        this.y += this.VeclocityY;
     }
     public void render(Graphics graphics){
-        graphics.drawImage(this.image,this.x,this.y,5,5,null);
+    graphics.drawImage(this.image,(int)this.position.x,(int)this.position.y,5,5,null);
     }
-
-
-
 }
 
 
