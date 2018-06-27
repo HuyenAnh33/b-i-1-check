@@ -10,13 +10,13 @@ public class Enemy {
     public Enemy(){
         this.position = new Vecto2D();
         this.velocity = new Vecto2D();
-        this.image = image;
+
     }
     public void run(){
 
         this.position.addUp(this.velocity);
     }
     public void render(Graphics graphics){
-        graphics.drawImage(this.image,(int)this.position.x,(int)this.position.y,10,10,null);}
+        graphics.drawImage(this.image,(int)this.position.x,(int)this.position.y,30,30,null);}
 }
 

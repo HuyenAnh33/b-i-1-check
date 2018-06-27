@@ -116,11 +116,11 @@ public class GameCanvas extends JPanel {
         }
         public void createBullet(){
         if (this.countBullet == 20){
-            Bullet bullet = new Bullet(
-                    this.loadImage("resources/images/star.png"),
-                    new Vecto2D(600,this.random.nextInt(300)),
-                    new Vecto2D(-this.random.nextInt(5)+1, 0)
-            );
+            Bullet bullet = new Bullet();
+                    bullet.image =this.loadImage("resources/images/powerup_shield.png");
+                    bullet.position.set(600,this.random.nextInt(300));
+                    bullet.velocity.set(-this.random.nextInt(5)+1, 0);
+
             this.bullets.add(bullet);
             this.countBullet = 0;
         }else {
@@ -130,11 +130,10 @@ public class GameCanvas extends JPanel {
 
         public void createplayerBullet(){
         if (this.countplayerBullet == 20) {
-            Bullet bullet = new Bullet(
-                    this.loadImage("resources/images/circle.png"),
-                    new Vecto2D(450, this.random.nextInt(200)),
-                    new Vecto2D(-this.random.nextInt(4) + 1, 0)
-            );
+            Bullet bullet = new Bullet();
+                    bullet.image =  this.loadImage("resources/images/circle.png");
+                    bullet.position.set(450, this.random.nextInt(200));
+                    bullet.velocity.set(-this.random.nextInt(4) + 1, 0);
             this.playerBullets.add(bullet);
             this.countplayerBullet = 0;
         }else{
