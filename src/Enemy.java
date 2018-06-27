@@ -6,11 +6,14 @@ public class Enemy {
     public Vecto2D velocity;
     public BufferedImage image;
 
+
     public Enemy(){
         this.position = new Vecto2D();
         this.velocity = new Vecto2D();
+        this.image = image;
     }
     public void run(){
+
         this.position.addUp(this.velocity);
     }
     public void render(Graphics graphics){

@@ -22,6 +22,7 @@ public class Player {
     }
     public void run() {
         this.position.addUp(this.velocity);
+
     }
 
     public void render(Graphics graphics) {

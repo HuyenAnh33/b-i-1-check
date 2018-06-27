@@ -6,14 +6,18 @@ public class Star {
     public BufferedImage image;
     public Vecto2D position;
     public Vecto2D velocity;
-    Random random;
 
-    public Star(int i, int i1){
+    public Star(BufferedImage image, Vecto2D position, Vecto2D velocity){
     this.position = new Vecto2D();
     this.velocity = new Vecto2D();
+    this.image = image;
     }
+
+    public Star() {
+    }
+
     public void run() {
-        this.position.addUp(velocity);
+        this.position.addUp(this.velocity);
 
     }
     public void render(Graphics graphics){
