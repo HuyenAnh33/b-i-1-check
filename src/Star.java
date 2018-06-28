@@ -7,14 +7,12 @@ public class Star {
     public Vecto2D position;
     public Vecto2D velocity;
 
-    public Star(BufferedImage image, Vecto2D position, Vecto2D velocity){
+    public Star(){
     this.position = new Vecto2D();
     this.velocity = new Vecto2D();
     this.image = image;
     }
 
-    public Star() {
-    }
 
     public void run() {
         this.position.addUp(this.velocity);

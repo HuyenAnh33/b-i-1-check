@@ -95,11 +95,10 @@ public class GameCanvas extends JPanel {
 
     public void createStar() {
         if (this.countStar == 10) {
-            Star star = new Star(
-                    this.loadImage("resources/images/star.png"),
-                    new Vecto2D(1024,this.random.nextInt(300)),
-                    new Vecto2D(-this.random.nextInt(3)+1, 0)
-            );
+            Star star = new Star();
+                   star.image =this.loadImage("resources/images/star.png");
+                    star.position.set(1024,this.random.nextInt(300));
+                    star.velocity.set(-this.random.nextInt(3)+1, 0);
                 this.stars.add(star);
                 this.countStar = 0;
             }else{
