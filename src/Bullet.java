@@ -15,6 +15,6 @@ public class Bullet {
         this.position.addUp(velocity);
     }
     public void render(Graphics graphics){
-        graphics.drawImage(this.image,(int)this.position.x,(int)this.position.y,5,5,null);
+        graphics.drawImage(this.image,(int)this.position.x,(int)this.position.y,40,40,null);
     }
 }
