@@ -10,8 +10,8 @@ public class Star {
     public Star(){
     this.position = new Vecto2D();
     this.velocity = new Vecto2D();
-    this.image = image;
-    }
+
+}
 
 
     public void run() {

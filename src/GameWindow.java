@@ -51,10 +51,8 @@ public class GameWindow extends JFrame {
 //                    gameCanvas.positionXPlayer = 0;
 //                    gameCanvas.positionYPlayer = random.nextInt(1025);
 //                }
-
             }
-
-
+            
             @Override
             public void keyReleased(KeyEvent e) {
 
