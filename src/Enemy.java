@@ -53,6 +53,10 @@ public class Enemy {
         graphics.drawImage(this.image, (int) this.position.x, (int) this.position.y, 30, 30, null);
         this.bullets.forEach(bullet -> bullet.render(graphics));
     }
+//    public void render(Graphics graphics, int width,int height){
+//        graphics.drawImage(this.image,(int) this.position.x,(int)this.position.y, width, height,null);
+//
+//    }
 
 }
 

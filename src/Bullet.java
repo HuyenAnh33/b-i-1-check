@@ -32,8 +32,8 @@ public class Bullet {
     }
 
     public Bullet(BufferedImage image, Vecto2D position, Vecto2D velocity){
-        this.position = new Vecto2D();
-        this.velocity = new Vecto2D();
+        this.position = new Vecto2D(position.x,position.y);
+        this.velocity = new Vecto2D(velocity.x,velocity.y);
         this.image = image;
 
     }
@@ -45,5 +45,5 @@ public class Bullet {
         graphics.drawImage(this.image,(int)this.position.x,(int)this.position.y,15,15,null);
     }
 
-    
+
 }
