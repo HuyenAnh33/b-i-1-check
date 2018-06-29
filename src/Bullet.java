@@ -44,6 +44,9 @@ public class Bullet {
     public void render(Graphics graphics){
         graphics.drawImage(this.image,(int)this.position.x,(int)this.position.y,15,15,null);
     }
+    public void render(Graphics graphics, int width,int height ){
+        graphics.drawImage(this.image,(int)this.position.x,(int)this.position.y,width,height,null);
+    }
 
 
 }

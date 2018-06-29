@@ -25,7 +25,7 @@ public class Player {
         );
         this.polygon = new Polygon();
         this.velocity = new Vecto2D(3.5f, 0);
-        this.createBullet();
+
         this.Bullets = new ArrayList<>();
 
     }
@@ -33,19 +33,20 @@ public class Player {
     public void run() {
         this.Bullets.forEach(bullet ->bullet.run() );
         this.position.addUp(this.velocity);
-
+        this.createBullet();
     }
     public void createBullet() {
         if (this.countBullet == 20) {
+
             try {
                 BufferedImage bufferedImage = ImageIO.read(new File("resources/images/circle.png"));
-                Bullet bullet = new Bullet(bufferedImage,this.position, this.velocity);
+                Bullet bullet = new Bullet(bufferedImage, this.position, this.velocity);
                 this.Bullets.add(bullet);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             countBullet = 0;
+
         } else {
             countBullet += 1;
         }

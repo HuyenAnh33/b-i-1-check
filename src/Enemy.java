@@ -20,10 +20,9 @@ public class Enemy {
     public Enemy() {
         this.position = new Vecto2D();
         this.velocity = new Vecto2D();
-        this.createBullet();
         this.bullets =new ArrayList<>();
     }
-    public Enemy(BufferedImage image, Vecto2D position, Vecto2D velocity){
+    public Enemy(BufferedImage image, Vecto2D position){
         this.image = image;
         this.position = new Vecto2D(position.x,position.y);
         this.velocity = new Vecto2D();
@@ -47,6 +46,7 @@ public class Enemy {
     public void run() {
         this.bullets.forEach(bullet -> bullet.run());
         this.position.addUp(this.velocity);
+        this.createBullet();
     }
 
     public void render(Graphics graphics) {
