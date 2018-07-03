@@ -6,57 +6,46 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Vector;
 
-public class Enemy {
-    public Vecto2D position;
+public class Enemy extends GameObject {
     public Vecto2D velocity;
     public BufferedImage image;
-    public Random random = new Random();
-    public int countBullet = 0;
 
-    List<Bullet> bullets;
+    private List<BulletEnemy> bulletEnemies;
+    private int count = 0;
 
 
     public Enemy() {
         this.position = new Vecto2D();
         this.velocity = new Vecto2D();
-        this.bullets =new ArrayList<>();
-    }
-    public Enemy(BufferedImage image, Vecto2D position){
-        this.image = image;
-        this.position = new Vecto2D(position.x,position.y);
-        this.velocity = new Vecto2D();
+        this.renderer = new ImageRenderer("resources/images/circle.png",20,20);
+        this.bulletEnemies = new ArrayList<>();
     }
 
-    public void createBullet(){
-        if (this.countBullet == 20) {
 
-            try {
-                BufferedImage bufferedImage = ImageIO.read(new File("resources/images/powerup_shield.png"));
-                Bullet bullet = new Bullet(bufferedImage,this.position,this.velocity);
-                this.bullets.add(bullet);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            this.countBullet = 0;
-        }else {
-            this.countBullet += 1;
-        }
-    }
     public void run() {
-        this.bullets.forEach(bullet -> bullet.run());
         this.position.addUp(this.velocity);
-        this.createBullet();
+        if (this.count == 30) {
+            for (double angle = 0.0; angle < 360.0; angle += 360.0 / 20.0) {//xet ban vong tron dung for ban 360 do
+                BulletEnemy bulletEnemy = new BulletEnemy();
+                bulletEnemy.position.set(this.position);
+                bulletEnemy.velocity.set(new Vecto2D(3.0f, 0.0f).rotate(angle));
+                this.bulletEnemies.add(bulletEnemy);
+            }
+            this.count = 0;
+        } else {
+            this.count += 1;
+        }
+        super.run();
+        this.bulletEnemies.forEach(bulletEnemy -> bulletEnemy.run());
     }
 
     public void render(Graphics graphics) {
-        graphics.drawImage(this.image, (int) this.position.x, (int) this.position.y, 30, 30, null);
-        this.bullets.forEach(bullet -> bullet.render(graphics));
+        super.render(graphics);
+        this.bulletEnemies.forEach(bulletEnemy -> bulletEnemy.render(graphics));
     }
-//    public void render(Graphics graphics, int width,int height){
-//        graphics.drawImage(this.image,(int) this.position.x,(int)this.position.y, width, height,null);
-//
-//    }
+
 
 }
 

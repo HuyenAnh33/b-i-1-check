@@ -1,8 +1,14 @@
+import javafx.scene.layout.Background;
+
 import java.awt.*;
 
-public class BackGround {
+public class BackGround extends GameObject{
+    public BackGround(){
+        this.renderer = new BackgroundRenderer();
+    }
+
     public void render(Graphics graphics){
-        graphics.setColor(Color.BLACK);
+        super.render(graphics);
         graphics.fillRect(0,0,1024,600);
 
     }

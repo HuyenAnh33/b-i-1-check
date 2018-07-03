@@ -44,8 +44,6 @@ public class GameCanvas extends JPanel {
         this.stars = new ArrayList<>();
         this.setupPlayer();
         this.setupEnemy();
-
-
     }
 
     private void setupPlayer() {
@@ -87,7 +85,6 @@ public class GameCanvas extends JPanel {
     public void createStar() {
         if (this.countStar == 10) {
             Star star = new Star();
-            star.image =this.loadImage("resources/images/star.png");
             star.position.set(1024,this.random.nextInt(600));
             star.velocity.set(-this.random.nextInt(3)+1, 0);
             this.stars.add(star);
