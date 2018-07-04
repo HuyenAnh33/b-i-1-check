@@ -8,8 +8,12 @@ public class CreateStar extends GameObject {
     int countStar = 0;
     List<Star> stars = new ArrayList<>();
 
+    public CreateStar(){
+        this.CreateStar();
 
-    public void createStar() {
+    }
+
+    public void CreateStar(){
         if (this.countStar == 10) {
             Star star = new Star();
             star.position.set(1024,this.random.nextInt(600));
@@ -19,7 +23,6 @@ public class CreateStar extends GameObject {
         }else{
             this.countStar += 1 ;
         }
-
 
     }
 
