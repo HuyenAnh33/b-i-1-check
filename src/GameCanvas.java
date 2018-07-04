@@ -16,13 +16,11 @@ public class GameCanvas extends JPanel {
     Graphics graphics;//co ve nay se ve het len buffered
     BackGround backGround;
 
-    int countStar = 0;
-    List<Star> stars;
-
 
     public Player player = new Player();
     public Enemy enemy = new Enemy();
     private Random random = new Random();
+    public CreateStar createStar;
 
 
     //vi tri
@@ -41,7 +39,7 @@ public class GameCanvas extends JPanel {
 
     private void setupCharacter() {
         this.backGround = new BackGround();
-        this.stars = new ArrayList<>();
+        this.createStar = new CreateStar();
         this.setupPlayer();
         this.setupEnemy();
     }
@@ -59,6 +57,7 @@ public class GameCanvas extends JPanel {
     //paintComponent chi la de ve va lat hinh anh
     @Override
     protected void paintComponent(Graphics g) { //ve tat ca mmoi thu o trong nay thoi (graphic la ve hien thi g)
+
         // Color = new Color();//chon bang mau
 
         g.drawImage(this.backBuffered, 0, 0, null);
@@ -69,39 +68,27 @@ public class GameCanvas extends JPanel {
 
         this.backGround.render(this.graphics);//tao nen
         this.enemy.render(this.graphics);
-        this.stars.forEach(star -> star.render(graphics));
+        this.createStar.stars.forEach(star -> star.render(graphics));
         this.player.render(this.graphics);
         this.repaint();// be tu gamewindow va this chinh la gamecavas
 
     }
 
     public void runAll() {
-        this.createStar();
-        this.stars.forEach(star -> star.run());
         this.runEnemy();
         this.player.run();
+        this.createStar.stars.forEach(star -> star.run());
     }
 
-    public void createStar() {
-        if (this.countStar == 10) {
-            Star star = new Star();
-            star.position.set(1024,this.random.nextInt(600));
-            star.velocity.set(-this.random.nextInt(3)+1, 0);
-            this.stars.add(star);
-            this.countStar = 0;
-        }else{
-            this.countStar += 1 ;
-        }
-    }
-    public void runEnemy (){
-        Vecto2D velocity = this.player.position
-                .subtract(this.enemy.position)
-                .normalize()
+
+        public void runEnemy (){
+            Vecto2D velocity = this.player.position
+                    .subtract(this.enemy.position)
+                    .normalize()
                 .multiply(1.5f);
         this.enemy.velocity.set(velocity);
         this.enemy.run();
     }
-
 
     private BufferedImage loadImage (String path){
 

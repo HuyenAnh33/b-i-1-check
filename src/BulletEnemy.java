@@ -11,8 +11,10 @@ public class BulletEnemy extends  GameObject{
         super.run();
         this.position.addUp(this.velocity);
 
+
     }
     public void render(Graphics graphics){
+
         super.render(graphics);
     }
 }
