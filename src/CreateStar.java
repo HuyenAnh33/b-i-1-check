@@ -3,14 +3,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class CreateStar {
+public class CreateStar extends GameObject {
     public Random random;
     int countStar = 0;
     List<Star> stars = new ArrayList<>();
 
-    public CreateStar(){
-        this.createStar();
-    }
 
     public void createStar() {
         if (this.countStar == 10) {
