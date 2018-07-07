@@ -16,6 +16,7 @@ public class GameWindow extends JFrame {
         this.event();
         this.setVisible(true);
 
+
     }
     public void event(){
         this.keyboardEvent();;
