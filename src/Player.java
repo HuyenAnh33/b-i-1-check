@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class Player extends GameObject{
+public class Player extends GameObject {
 
     public Vecto2D velocity;
     public double angle = 0.0;
@@ -16,7 +16,7 @@ public class Player extends GameObject{
     public Random random;
 
     public Player() {
-        this.position =  new Vecto2D();
+        this.position = new Vecto2D();
         this.renderer = new PolygonRenderer(
                 Color.RED,
                 new Vecto2D(),
@@ -29,6 +29,7 @@ public class Player extends GameObject{
         this.playerAttack = new PlayerShoot();
 
     }
+
     @Override
     public void run() {
         super.run();
@@ -37,20 +38,16 @@ public class Player extends GameObject{
         this.playerAttack.run(this);
         this.backtoScreen();
     }
-        private void backtoScreen(){
-        if (this.position.x < 0)this.position.set(1024,this.random.nextInt(600));
-        if (this.position.x > 1024)this.position.set(0,this.random.nextInt(600));
-            if (this.position.y < 0)this.position.set(this.random.nextInt(1024),600);
-            if (this.position.y > 600)this.position.set(this.random.nextInt(1024),0);
 
-        }
-        @Override
-        public void render (Graphics graphics){
-           super.render(graphics);
-            ((PlayerShoot) this.playerAttack)
-                    .bulletPlayers
-                    .forEach(bulletPlayer -> bulletPlayer.render(graphics));
-        }
+    private void backtoScreen() {
+        if (this.position.x < 0) this.position.set(1024, this.random.nextInt(600));
+        if (this.position.x > 1024) this.position.set(0, this.random.nextInt(600));
+        if (this.position.y < 0) this.position.set(this.random.nextInt(1024), 600);
+        if (this.position.y > 600) this.position.set(this.random.nextInt(1024), 0);
 
     }
+
+}
+
+
 

@@ -5,6 +5,7 @@ public class GameObject {
     public Renderer renderer;
 
     public GameObject(){
+
         this.position = new Vecto2D();
     }
     public void run(){

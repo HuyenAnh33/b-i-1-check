@@ -7,6 +7,7 @@ public class GameWindow extends JFrame {
     GameCanvas gameCanvas;// dung de ve tat ca moi thu len
     long lastTime = 0;
     Random random = new Random();
+    public keyboarEvent keyboarEvent;
 
     public GameWindow() {
 
@@ -15,49 +16,11 @@ public class GameWindow extends JFrame {
         this.add(this.gameCanvas);//truyen game nay vao windown
         this.event();
         this.setVisible(true);
+
     }
     public void event(){
-        this.keyboarEvent();
+
         this.windowEvent();
-    }
-
-    private void keyboarEvent() {
-        this.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    gameCanvas.player.angle += 5.0;
-                }
-
-//                if (gameCanvas.positionXPlayer <= 0) {
-//                    gameCanvas.positionXPlayer = 1024;
-//                    gameCanvas.positionYPlayer = random.nextInt(601);
-//                }
-
-                if (e.getKeyCode() == KeyEvent.VK_RIGHT)
-
-                {
-                    gameCanvas.player.angle -= 5.0;
-                }
-                gameCanvas.player.velocity.set(
-                        (new  Vecto2D(3.5f,0.0f).rotate(gameCanvas.player.angle))
-                );
-//                if (gameCanvas.positionXPlayer >= 600) {
-//                    gameCanvas.positionXPlayer = 0;
-//                    gameCanvas.positionYPlayer = random.nextInt(1025);
-//                }
-            }
-            
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-        });
     }
 
     private void windowEvent() {

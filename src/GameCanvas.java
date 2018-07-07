@@ -14,17 +14,17 @@ public class GameCanvas extends JPanel {
     //BackBuffered lat hinh anh
     BufferedImage backBuffered;
     Graphics graphics;//co ve nay se ve het len buffered
-    BackGround backGround;
+
 
 
     public Player player = new Player();
-    public Enemy enemy = new Enemy();
-    private Random random = new Random();
-    public CreateStar createStar;
+
+
 
 
     //vi tri
     public GameCanvas() {
+
         this.setSize(1024, 600);
         this.setupBackBuffered();
         this.setupCharacter();
@@ -38,21 +38,22 @@ public class GameCanvas extends JPanel {
     }
 
     private void setupCharacter() {
-        this.backGround = new BackGround();
-        this.createStar = new CreateStar();
+        GameObjectManager.instance.add(new BackGround());
+        GameObjectManager.instance.add(new CreateStar());
+
         this.setupPlayer();
-        this.setupEnemy();
+
     }
 
     private void setupPlayer() {
 
-        this.player.position.set(100, 200);
+        //this.player.position.set(100, 200);
+        Player player = new Player();
+        player.position.set(100,200);
+        GameObjectManager.instance.add(player);
     }
 
-    private void setupEnemy() {
-        this.enemy.position.set(800, 400);
-        this.enemy.image = this.loadImage("resources/images/circle.png");
-    }
+
 
     //paintComponent chi la de ve va lat hinh anh
     @Override
@@ -65,35 +66,23 @@ public class GameCanvas extends JPanel {
 
 
     public void renderAll() { // ve
-
-        this.backGround.render(this.graphics);//tao nen
-        this.enemy.render(this.graphics);
-        this.createStar.stars.forEach(star -> star.render(graphics));
-        this.player.render(this.graphics);
-        this.repaint();// be tu gamewindow va this chinh la gamecavas
+    GameObjectManager.instance.renderAll(this.graphics);
+    this.repaint();
 
     }
 
     public void runAll() {
-        //this.createStar.createStar();
-        this.runEnemy();
-        this.player.run();
-        this.createStar.run();
-        this.createStar.stars.forEach(star -> star.run());
+        //tap trung dua ra list duy nhat quan ly tt ca cac nhan vat
+        GameObjectManager.instance.runAll();
 
     }
 
 
-        public void runEnemy (){
-            Vecto2D velocity = this.player.position
-                    .subtract(this.enemy.position)
-                    .normalize()
-                .multiply(1.5f);
-        this.enemy.velocity.set(velocity);
-        this.enemy.run();
+    public void runEnemy() {
+
     }
 
-    private BufferedImage loadImage (String path){
+    private BufferedImage loadImage(String path) {
 
         try {
             return ImageIO.read(new File(path));

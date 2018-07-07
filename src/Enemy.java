@@ -25,19 +25,26 @@ public class Enemy extends GameObject {
 
 
     public void run() {
-        this.position.addUp(this.velocity);
-        if (this.count == 30) {
-            for (double angle = 0.0; angle < 360.0; angle += 360.0 / 20.0) {//xet ban vong tron dung for ban 360 do
-                BulletEnemy bulletEnemy = new BulletEnemy();
-                bulletEnemy.position.set(this.position);
-                bulletEnemy.velocity.set(new Vecto2D(3.0f, 0.0f).rotate(angle));
-                this.bulletEnemies.add(bulletEnemy);
-            }
-            this.count = 0;
-        } else {
-            this.count += 1;
-        }
         super.run();
+        this.position.addUp(this.velocity);
+//        if (this.count == 30) {
+//            for (double angle = 0.0; angle < 360.0; angle += 360.0 / 20.0) {//xet ban vong tron dung for ban 360 do
+//                BulletEnemy bulletEnemy = new BulletEnemy();
+//                bulletEnemy.position.set(this.position);
+//                bulletEnemy.velocity.set(new Vecto2D(3.0f, 0.0f).rotate(angle));
+//                this.bulletEnemies.add(bulletEnemy);
+//            }
+//            this.count = 0;
+//        } else {
+//            this.count += 1;
+//        }
+        Player player = GameObjectManager.instance.findPlayer();
+        if (player != null) {
+            Vecto2D velocity = player.position
+                    .subtract(this.position)
+                    .normalize()
+                    .multiply(1.5f);
+        }
         this.bulletEnemies.forEach(bulletEnemy -> bulletEnemy.run());
     }
 
