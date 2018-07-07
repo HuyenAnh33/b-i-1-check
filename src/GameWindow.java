@@ -6,8 +6,7 @@ public class GameWindow extends JFrame {
 
     GameCanvas gameCanvas;// dung de ve tat ca moi thu len
     long lastTime = 0;
-    Random random = new Random();
-    public keyboarEvent keyboarEvent;
+
 
     public GameWindow() {
 
@@ -19,8 +18,11 @@ public class GameWindow extends JFrame {
 
     }
     public void event(){
-
+        this.keyboardEvent();;
         this.windowEvent();
+    }
+    public void keyboardEvent(){
+        this.addKeyListener(keyBoar.keyBoar);
     }
 
     private void windowEvent() {
